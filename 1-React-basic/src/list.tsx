@@ -12,14 +12,18 @@ export const ListPage: React.FC = () => {
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
   const [filter, setFilter] = React.useState<string>('lemoncode');
   const [valueFilter] = useDebounce(filter, 1000);
+  const [sendData, setSendata] = React.useState<string>();
 //` https://api.github.com/orgs/${filter}/members
   React.useEffect(() => {
-    fetch(`${filter}/members`)
+    fetch(`https://api.github.com/orgs/${filter}/members`)
       .then((response) => response.json())
-      .then((json) => setMembers(json));
-  }, []);
+      .then((res) => setMembers(res))
+      .catch((err)=> console.log(err));
+  }, [sendData]);
+
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setSendata(valueFilter);
   console.log('value', valueFilter);
 
 }
@@ -40,12 +44,12 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         <span className="list-header">Avatar</span>
         <span className="list-header">Id</span>
         <span className="list-header">Name</span>
-        {members.map((member) => (
-          <>
+        {members && members.length> 0 && members.map((member) => (
+          <React.Fragment key={member.id}>
             <img src={member.avatar_url} />
             <span>{member.id}</span>
             <Link to={`/detail/${member.login}`}>{member.login}</Link>
-          </>
+          </React.Fragment>
         ))}
       </div>
       <Link to="/detail">Navigate to detail page</Link>
