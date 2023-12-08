@@ -30,17 +30,20 @@ export const ListPage: React.FC = () => {
       .then((res) => getData(res, newData.from, newData.to))
       .catch((err) => console.log(err));
   }, [sendData, newData.from, newData.to]);
-  const getData = (res, from, to) => {
+  const getData = (res: MemberEntity[], from: number, to:number) => {
     console.log("from", from);
     console.log("to", to);
-    const data = res.slice(from, to);
-    setMembers(data);
-    setTotalElemenst(res.length);
+    if(res as MemberEntity[]){
+      const data = res.slice(from, to);
+      setMembers(data);
+      setTotalElemenst(res.length);
+    }
+
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSendata(valueFilter);
-    console.log("value", valueFilter);
+    // console.log("value", valueFilter);
   };
   const updateData = (data) => {
     console.log("updateData data", data);
