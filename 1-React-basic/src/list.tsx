@@ -12,12 +12,12 @@ interface MemberEntity {
 export const ListPage: React.FC = () => {
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
   const [filter, setFilter] = React.useState<Filter>(createEmptyFilter())
-  const [debouncedSearchTerm] = useDebounce(filter.org, 1000);
+  const [debouncedSearchTerm] = useDebounce(filter, 1000);
   const [isSearching, setIsSearching] = React.useState<string>('');
 //`https://api.github.com/orgs/${debouncedSearchTerm}/members
   React.useEffect(() => {
 
-          fetch(`https://api.github.com/orgs/${debouncedSearchTerm}/members`)
+          fetch(`https://api.github.com/orgs/${debouncedSearchTerm.org}/members`)
           .then((response) => response.json())
           .then((res) => setMembers(res))
           .catch((err)=> console.log(err));
@@ -28,7 +28,7 @@ export const ListPage: React.FC = () => {
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  setIsSearching(debouncedSearchTerm);
+  setIsSearching(debouncedSearchTerm.org);
 }
 const updateFieldValue = (name: keyof Filter) => ( e ) =>{
   setFilter({
