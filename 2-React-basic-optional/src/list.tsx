@@ -45,6 +45,8 @@ export const ListPage: React.FC = () => {
   const [debouncedSearchTerm] = useDebounce(searchForm, 500);
   const [totalElement, setTotalElemenst] = React.useState<number>(0);
   const perPage = 5;
+  const defaultPage= 1;
+  const [resetP, setResetP] = React.useState<boolean>(false);
   const [newData, setNewData] = React.useState({
     from: 0,
     to: perPage,
@@ -107,6 +109,8 @@ export const ListPage: React.FC = () => {
         <BasicPagination
           pageSize={perPage}
           totalElement={totalElement}
+          defaultPage = {defaultPage}
+          search = {searchValue}
           updateData={updateData}
         />
         <Link to="/detail">Navigate to detail page</Link>
