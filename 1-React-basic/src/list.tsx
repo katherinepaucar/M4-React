@@ -13,11 +13,11 @@ export const ListPage: React.FC = () => {
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
   const [filter, setFilter] = React.useState<Filter>(createEmptyFilter())
   const [debouncedSearchTerm] = useDebounce(filter, 1000);
-  const [isSearching, setIsSearching] = React.useState<string>('');
-//`https://api.github.com/orgs/${debouncedSearchTerm}/members
+  const [isSearching, setIsSearching] = React.useState<string>(filter.org);
+//`https://api.github.com/orgs/${debouncedSearchTerm.org}/members
   React.useEffect(() => {
 
-          fetch(`https://api.github.com/orgs/${debouncedSearchTerm.org}/members`)
+          fetch(``)
           .then((response) => response.json())
           .then((res) => setMembers(res))
           .catch((err)=> console.log(err));
