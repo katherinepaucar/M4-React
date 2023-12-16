@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { Filter, MemberEntity, createEmptyFilter } from "./models";
 import { SearchContext } from "./context/search.context";
-import Pagination from "@mui/material/Pagination";
 import {
   Button,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -16,6 +14,8 @@ import {
   styled,
   tableCellClasses,
 } from "@mui/material";
+import { BasicPagination } from "./pagination";
+import { MemberList } from "./member-list";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -42,14 +42,30 @@ export const ListPage: React.FC = () => {
   const [searchForm, setSearchForm] = React.useState<Filter>(
     createEmptyFilter(searchValue)
   );
-  const [debouncedSearchTerm] = useDebounce(searchForm, 1000);
+  const [debouncedSearchTerm] = useDebounce(searchForm, 500);
+  const [totalElement, setTotalElemenst] = React.useState<number>(0);
+  const perPage = 5;
+  const [newData, setNewData] = React.useState({
+    from: 0,
+    to: perPage,
+  });
   React.useEffect(() => {
     //https://api.github.com/orgs/${debouncedSearchTerm.org}/members
     fetch(`https://api.github.com/orgs/${debouncedSearchTerm.org}/members`)
       .then((response) => response.json())
-      .then((res) => setMembers(res))
+      .then((res) => getData(res, newData.from, newData.to))
       .catch((err) => console.log(err));
-  }, [searchValue]);
+  }, [searchValue, newData.from, newData.to]);
+
+  const getData = (res: MemberEntity[], from: number, to: number) => {
+    /*console.log("from", from);
+    console.log("to", to);*/
+    if (res as MemberEntity[]) {
+      const data = res.slice(from, to);
+      setMembers(data);
+      setTotalElemenst(res.length);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,6 +78,13 @@ export const ListPage: React.FC = () => {
       });
       //  console.log('updateFieldValue e')
     };
+  const updateData = (data) => {
+    //  console.log("updateData data", data);
+    setNewData({
+      from: data.from,
+      to: data.to,
+    });
+  };
 
   return (
     <>
@@ -76,34 +99,16 @@ export const ListPage: React.FC = () => {
             required
             onChange={updateFieldValue("org")}
           />
-          <Button variant="contained">Buscar</Button>
+          <Button variant="contained" type="submit">
+            Buscar
+          </Button>
         </form>
-        <Table sx={{ width: 600 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="center">Avatar</StyledTableCell>
-              <StyledTableCell align="center">Id</StyledTableCell>
-              <StyledTableCell align="center">Name</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {members &&
-              members.length > 0 &&
-              members.map((member) => (
-                <StyledTableRow key={member.id}>
-                  <StyledTableCell align="center" component="th" scope="row">
-                    <img src={member.avatar_url} />
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{member.id}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Link to={`/detail/${member.login}`}>{member.login}</Link>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-          </TableBody>
-        </Table>
-
-        <Pagination count={10} variant="outlined" />
+        <MemberList members={members}></MemberList>
+        <BasicPagination
+          pageSize={perPage}
+          totalElement={totalElement}
+          updateData={updateData}
+        />
         <Link to="/detail">Navigate to detail page</Link>
       </div>
     </>
