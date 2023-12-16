@@ -33,7 +33,10 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@lemoncode/fonk": "^1.5.4",
+    "@mui/material": "^5.15.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",

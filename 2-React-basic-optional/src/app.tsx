@@ -5,18 +5,16 @@ import { ListPage } from "./list";
 import { DetailPage } from "./detail";
 import { SearchProvider } from "./context/search.context";
 
-
-
 export const App = () => {
   return (
     <SearchProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/list" element={<ListPage />} />
-        <Route path="/detail/:id" element={<DetailPage />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/list" element={<ListPage />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
+        </Routes>
+      </Router>
     </SearchProvider>
   );
 };

@@ -1,20 +1,16 @@
-.list-user-list-container {
+.container{
   display: grid;
-  grid-template-columns: 80px 1fr 3fr;
-  grid-template-rows: 20px;
-  grid-auto-rows: 80px;
-  grid-gap: 10px 5px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  place-items: center;
+  grid-gap: 10px;
 }
-
-.list-header {
-  background-color: #2f4858;
-  color: white;
-  font-weight: bold;
-}
-
-.list-user-list-container > img {
+img{
   width: 80px;
 }
-.form{
-  padding: 5px;
+
+.form-list{
+  display: flex;
+  padding: 2px;
+  gap: 12px;
 }
