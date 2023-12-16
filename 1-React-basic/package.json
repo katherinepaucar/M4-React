@@ -33,6 +33,7 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
+    "@lemoncode/fonk": "^1.5.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",

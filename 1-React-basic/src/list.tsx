@@ -1,6 +1,7 @@
 import React, { FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { useDebounce } from 'use-debounce';
+import { Filter, createEmptyFilter } from "./form/filter.vm";
+import { useDebounce } from "use-debounce";
 
 interface MemberEntity {
   id: string;
@@ -10,33 +11,42 @@ interface MemberEntity {
 
 export const ListPage: React.FC = () => {
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
-  const [filter, setFilter] = React.useState<string>('lemoncode');
-  const [valueFilter] = useDebounce(filter, 1000);
-  const [sendData, setSendata] = React.useState<string>();
-//` https://api.github.com/orgs/${filter}/members
+  const [filter, setFilter] = React.useState<Filter>(createEmptyFilter())
+  const [debouncedSearchTerm] = useDebounce(filter.org, 1000);
+  const [isSearching, setIsSearching] = React.useState<string>('');
+//`https://api.github.com/orgs/${debouncedSearchTerm}/members
   React.useEffect(() => {
-    fetch(`https://api.github.com/orgs/${filter}/members`)
-      .then((response) => response.json())
-      .then((res) => setMembers(res))
-      .catch((err)=> console.log(err));
-  }, [sendData]);
+
+          fetch(`https://api.github.com/orgs/${debouncedSearchTerm}/members`)
+          .then((response) => response.json())
+          .then((res) => setMembers(res))
+          .catch((err)=> console.log(err));
+
+
+
+  }, [isSearching]);
 
 const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  setSendata(valueFilter);
-  console.log('value', valueFilter);
+  setIsSearching(debouncedSearchTerm);
+}
+const updateFieldValue = (name: keyof Filter) => ( e ) =>{
+  setFilter({
+    [name]: e.target.value
+  })
+ //  console.log('updateFieldValue e')
 
 }
   
   return (
     <>
-      <h2>Hello from List page</h2>+{" "}
+      <h2>Hello from List page</h2>
       <form  className="form" onSubmit={handleSubmit}>
         <input 
         type="text"
-        value={filter}
+        value={filter.org}
         required
-        onChange={(e) => setFilter((e.target.value).toLocaleLowerCase())}/> 
+        onChange={updateFieldValue('org')}/> 
         <button >Filtrar por organización</button>
       </form>
 
@@ -56,3 +66,4 @@ const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     </>
   );
 };
+
