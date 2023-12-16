@@ -33,7 +33,7 @@ export const BasicPagination: React.FC<Props> = (props) => {
   }, [pagination.from, pagination.to]);
 
   const handleChange = (event, page) => {
-    console.log("handleChange page", page);
+    // console.log("handleChange page", page);
     setcurrentPage(page);
     const from = (page - 1) * pageSize;
     const to = (page - 1) * pageSize + pageSize;
