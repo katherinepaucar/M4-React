@@ -14,3 +14,6 @@ img{
   padding: 2px;
   gap: 12px;
 }
+.text-error{
+  color:red;
+}
