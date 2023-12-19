@@ -4,7 +4,7 @@ import { LoginPage } from "./login";
 import { DetailPage } from "./members-list/detail";
 import { SearchProvider } from "./context/search.context";
 import { ListPage } from "./members-list/list";
-import { OtherList } from "./models/otherList";
+import { OtherList } from "./otherList/otherList";
 import ResponsiveAppBar from "./navBar";
 
 export const App = () => {
