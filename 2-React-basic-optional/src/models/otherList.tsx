@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Filter, MemberEntity, createEmptyFilter } from "./models";
-import { SearchContext } from "./context/search.context";
+import { Filter, MemberEntity, createEmptyFilter } from ".";
+import { SearchContext } from "../context/search.context";
 import {
   Button,
   TextField,
 } from "@mui/material";
-import { BasicPagination } from "./pagination";
-import { MemberList } from "./member-list";
-import ResponsiveAppBar from "./navBar";
+import { BasicPagination } from "../pagination";
+import { MemberList } from "../members-list/member-list";
+import ResponsiveAppBar from "../navBar";
 
 
-export const ListPage: React.FC = () => {
+export const OtherList: React.FC = () => {
   const { searchValue, setNewValue } = React.useContext(SearchContext);
   const [searchForm, setSearchForm] = React.useState<Filter>(
                                     createEmptyFilter(searchValue)
@@ -27,7 +27,7 @@ export const ListPage: React.FC = () => {
   });
   React.useEffect(() => {
     //https://api.github.com/orgs/${searchForm.org}/members
-    fetch(`https://api.github.com/orgs/${searchForm.org}/members`)
+    fetch(``)
       .then(handleError)
       .then((res) => getData(res, newData.from, newData.to))
       .catch((err) => {

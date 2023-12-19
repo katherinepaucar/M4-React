@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { LoginPage } from "./login";
-import { DetailPage } from "./detail";
+import { DetailPage } from "./members-list/detail";
 import { SearchProvider } from "./context/search.context";
-import { ListPage } from "./list";
-import { OtherList } from "./otherList";
+import { ListPage } from "./members-list/list";
+import { OtherList } from "./models/otherList";
 import ResponsiveAppBar from "./navBar";
 
 export const App = () => {

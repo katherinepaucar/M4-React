@@ -9,7 +9,7 @@ import {
   styled,
   tableCellClasses,
 } from "@mui/material";
-import { MemberEntity } from "./models";
+import { MemberEntity } from "../models";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
