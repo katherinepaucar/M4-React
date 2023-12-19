@@ -1,23 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Character, Filter, APIResponse, createEmptyFilter } from "../models";
+import { Character, APIResponse } from "../models";
 import { SearchContext } from "../context/search.context";
 import {
   Button,
   TextField,
 } from "@mui/material";
 
-import { CharacterList, } from "./character-list";
+import { SearchName, createEmptyForm } from "../models/search";
+import { CharacterList } from "./character-list";
+import { useDebounce } from "use-debounce";
 
 
 
 export const CharacterPage: React.FC = () => {
   const { searchValue, setNewValue } = React.useContext(SearchContext);
-  const [searchForm, setSearchForm] = React.useState<Filter>(
-                                    createEmptyFilter(searchValue)
-                                  );
+  const [searchForm, setSearchForm] = React.useState<SearchName>(
+                           createEmptyForm());
+
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
+  const [debounceSearch] = useDebounce(searchForm, 700);
+  console.log('debounceSearch', debounceSearch)
   const perPage = 5;
   const defaultPage= 1;
   const [totalElement, setTotalElement] = React.useState<number>(0);
@@ -26,7 +29,7 @@ export const CharacterPage: React.FC = () => {
     to: perPage,
   });
   React.useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character`)
+    fetch(`https://rickandmortyapi.com/api/character?name=${debounceSearch.name}`)
       .then(handleError)
       .then((res) => getData(res, newData.from, newData.to))
       .catch((err) => {
@@ -35,7 +38,7 @@ export const CharacterPage: React.FC = () => {
         setCharacters([]);
         setTotalElement(0);
       });
-  }, [searchValue, newData.from, newData.to]);
+  }, [debounceSearch.name]);
 
   const handleError = response => {
     if (!response.ok) { 
@@ -49,7 +52,7 @@ export const CharacterPage: React.FC = () => {
     /*console.log("from", from);
     console.log("to", to);*/
     if (res.results && (res.results as Character[])) {
-      const data = (res.results as Character[]).slice(from, to);
+      const data = (res.results as Character[]);
       setCharacters(data);
       setTotalElement((res.results as Character[]).length);
       if(error){
@@ -59,41 +62,29 @@ export const CharacterPage: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setNewValue(searchForm.org);
-  };
   const updateFieldValue =
-    (name: keyof Filter) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    (name: keyof SearchName) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(e);
       setSearchForm({
         [name]: e.target.value,
       });
       //  console.log('updateFieldValue e')
     };
-  const updateData = (data) => {
-    //  console.log("updateData data", data);
-    setNewData({
-      from: data.from,
-      to: data.to,
-    });
-  };
+
 
   return (
     <>
       <div className="container">
-        <h2>Hello from List page</h2>
-        <form className="form-list" onSubmit={handleSubmit}>
+        <h2>RICK & MORTY LIST </h2>
+        <form className="form-list">
           <TextField
             id="standard-basic"
-            label="Organización"
+            label="Name"
             variant="standard"
-            value={searchForm.org}
+            value={searchForm.name}
             required
-            onChange={updateFieldValue("org")}
+            onChange={updateFieldValue("name")}
           />
-          <Button variant="contained" type="submit">
-            Buscar
-          </Button>
         </form>
         <CharacterList characters={characters}></CharacterList>
         {error && <p className="text-error">{error}</p>}
