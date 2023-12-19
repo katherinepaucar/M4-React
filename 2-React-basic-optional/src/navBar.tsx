@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = [ {title:'GITHUB List', link: '/list'}, {title:'Rick & Morty List', link: '/other-list'}];
+const pages = [ {title:'GITHUB List', link: '/list'}, {title:'Rick & Morty List', link: '/character-list'}];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);

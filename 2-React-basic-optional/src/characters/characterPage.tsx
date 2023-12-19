@@ -1,22 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Filter, MemberEntity, createEmptyFilter } from "../models";
+import { Character, Filter, APIResponse, createEmptyFilter } from "../models";
 import { SearchContext } from "../context/search.context";
 import {
   Button,
   TextField,
 } from "@mui/material";
-import { BasicPagination } from "../pagination";
-import { MemberList } from "../members-list/member-list";
-import ResponsiveAppBar from "../navBar";
+
+import { CharacterList, } from "./character-list";
 
 
-export const OtherList: React.FC = () => {
+
+export const CharacterPage: React.FC = () => {
   const { searchValue, setNewValue } = React.useContext(SearchContext);
   const [searchForm, setSearchForm] = React.useState<Filter>(
                                     createEmptyFilter(searchValue)
                                   );
-  const [members, setMembers] = React.useState<MemberEntity[]>([]);
+  const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
   const perPage = 5;
   const defaultPage= 1;
@@ -26,14 +26,13 @@ export const OtherList: React.FC = () => {
     to: perPage,
   });
   React.useEffect(() => {
-    //https://api.github.com/orgs/${searchForm.org}/members
-    fetch(``)
+    fetch(`https://rickandmortyapi.com/api/character`)
       .then(handleError)
       .then((res) => getData(res, newData.from, newData.to))
       .catch((err) => {
         console.log(err);
         setError('Ha ocurrido un error');
-        setMembers([]);
+        setCharacters([]);
         setTotalElement(0);
       });
   }, [searchValue, newData.from, newData.to]);
@@ -45,13 +44,14 @@ export const OtherList: React.FC = () => {
         return response.json();
     }
   }; 
-  const getData = (res: MemberEntity[], from: number, to: number) => {
+  const getData = (res: APIResponse<Character[]>, from: number, to: number) => {
+    console.log(res)
     /*console.log("from", from);
     console.log("to", to);*/
-    if (res as MemberEntity[]) {
-      const data = res.slice(from, to);
-      setMembers(data);
-      setTotalElement(res.length);
+    if (res.results && (res.results as Character[])) {
+      const data = (res.results as Character[]).slice(from, to);
+      setCharacters(data);
+      setTotalElement((res.results as Character[]).length);
       if(error){
         setError(null);
       }
@@ -95,16 +95,16 @@ export const OtherList: React.FC = () => {
             Buscar
           </Button>
         </form>
-        <MemberList members={members}></MemberList>
+        <CharacterList characters={characters}></CharacterList>
         {error && <p className="text-error">{error}</p>}
+       {/* 
         <BasicPagination
           pageSize={perPage}
           totalElement={totalElement}
           defaultPage = {defaultPage}
           search = {searchValue}
           updateData={updateData}
-        />
-        <Link to="/detail">Navigate to detail page</Link>
+        />*/}
       </div>
     </>
   );
