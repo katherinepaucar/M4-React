@@ -1,25 +1,43 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDebounce } from "use-debounce";
+import { Link, json } from "react-router-dom";
 import { Filter, MemberEntity, createEmptyFilter } from "./models";
 import { SearchContext } from "./context/search.context";
 
 export const ListPage: React.FC = () => {
-  const {searchValue, setNewValue } =  React.useContext(SearchContext);
+  const { searchValue, setNewValue } = React.useContext(SearchContext);
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
-  const [searchForm, setSearchForm] = React.useState<Filter>(createEmptyFilter(searchValue));
-  const [debouncedSearchTerm] = useDebounce(searchForm, 1000);
+  const [searchForm, setSearchForm] = React.useState<Filter>(
+                                                createEmptyFilter(searchValue)
+                                              );
+  const [error, setError] = React.useState(null);
+
   React.useEffect(() => {
-    fetch(`https://api.github.com/orgs/${debouncedSearchTerm.org}/members`)
-      .then((response) => response.json())
-      .then((res) => setMembers(res))
-      .catch((err) => console.log(err));
+    fetch(`https://api.github.com/orgs/${searchForm.org}/members`)
+      .then(handleError)
+      .then((res) => {
+        setMembers(res);
+        if (error) {
+          setError(null);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Ha ocurrido un error");
+        setMembers([]);
+      });
   }, [searchValue]);
-  
+
+  const handleError = (response) => {
+    // console.log("response", response);
+    if (!response.ok) {
+      throw Error(response.status);
+    } else {
+      return response.json();
+    }
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setNewValue(debouncedSearchTerm.org);
-
+    setNewValue(searchForm.org);
   };
   const updateFieldValue =
     (name: keyof Filter) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +74,7 @@ export const ListPage: React.FC = () => {
             </React.Fragment>
           ))}
       </div>
+      {error ? <p className="text-error">{error}</p> : null}
       <Link to="/detail">Navigate to detail page</Link>
     </>
   );
