@@ -11,7 +11,7 @@ import { MemberList } from "./member-list";
 import ResponsiveAppBar from "./navBar";
 
 
-export const ListPage: React.FC = () => {
+export const OtherList: React.FC = () => {
   const { searchValue, setNewValue } = React.useContext(SearchContext);
   const [searchForm, setSearchForm] = React.useState<Filter>(
                                     createEmptyFilter(searchValue)
@@ -27,7 +27,7 @@ export const ListPage: React.FC = () => {
   });
   React.useEffect(() => {
     //https://api.github.com/orgs/${searchForm.org}/members
-    fetch(`https://api.github.com/orgs/${searchForm.org}/members`)
+    fetch(``)
       .then(handleError)
       .then((res) => getData(res, newData.from, newData.to))
       .catch((err) => {
