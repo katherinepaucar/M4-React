@@ -9,7 +9,7 @@ import {
   styled,
   tableCellClasses,
 } from "@mui/material";
-import { Character, MemberEntity } from "../models";
+import { Character } from "./model";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -56,7 +56,7 @@ export const CharacterList: React.FC<Props> = (props) => {
                 <StyledTableCell align="center">{character.id}</StyledTableCell>
                 <StyledTableCell align="center">{character.status}</StyledTableCell>
                 <StyledTableCell align="center">
-                  <Link to={`/detail/${character.id}`}>{character.name}</Link>
+                  <Link to={`/character-detail/${character.id}`}>{character.name}</Link>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

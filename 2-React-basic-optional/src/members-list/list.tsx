@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Filter, MemberEntity, createEmptyFilter } from "../models";
+import { Filter, MemberEntity, createEmptyFilter } from "./models";
 import { SearchContext } from "../context/search.context";
 import {
   Button,

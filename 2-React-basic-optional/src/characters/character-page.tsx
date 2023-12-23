@@ -1,15 +1,13 @@
 import React from "react";
-import { Character, APIResponse } from "../models";
 import { SearchContext } from "../context/search.context";
 import {
   Button,
   TextField,
 } from "@mui/material";
 
-import { SearchName, createEmptyForm } from "../models/search";
 import { CharacterList } from "./character-list";
 import { useDebounce } from "use-debounce";
-
+import { APIResponse, Character, SearchName, createEmptyForm } from "./model";
 
 
 export const CharacterPage: React.FC = () => {
