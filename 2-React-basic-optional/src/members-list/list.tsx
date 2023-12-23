@@ -6,9 +6,9 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { BasicPagination } from "../pagination";
+import { BasicPagination } from "./pagination";
 import { MemberList } from "./member-list";
-import ResponsiveAppBar from "../navBar";
+import ResponsiveAppBar from "../layout/navBar";
 
 
 export const ListPage: React.FC = () => {

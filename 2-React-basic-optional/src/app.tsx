@@ -3,16 +3,14 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 import { LoginPage } from "./login";
 import { DetailPage } from "./members-list/detail";
 import { SearchProvider } from "./context/search.context";
 import { ListPage } from "./members-list/list";
-import ResponsiveAppBar from "./navBar";
 import { CharacterPage } from "./characters/character-page";
 import { CharacterDetailPage } from "./characters/character-detail";
-import { Layout } from "./layout";
+import { Layout } from "./layout/layout";
 
 export const App = () => {
   return (

@@ -15,9 +15,9 @@ export const CharacterPage: React.FC = () => {
   const [searchForm, setSearchForm] = React.useState<SearchName>(
                                               createEmptyForm()
                                             );
+  const [debounceSearch] = useDebounce(searchForm, 700);
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
-  const [debounceSearch] = useDebounce(searchForm, 700);
   const [paginationData, SetPaginationData] = React.useState<InfoPagination>();
   const [page, setPage] = React.useState(pageDefault);
   React.useEffect(() => {

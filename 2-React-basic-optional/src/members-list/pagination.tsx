@@ -11,10 +11,8 @@ export interface Props {
 export const BasicPagination: React.FC<Props> = (props) => {
   const { pageSize, totalElement, defaultPage, search, updateData } = props;
   const [currentPage, setcurrentPage] = React.useState(defaultPage);
-  // const [search, setSearch] = React.useState(undefined);
   // console.log("props", props);
   const total = Math.ceil(totalElement / pageSize);
-  // console.log("total", total);
   const [pagination, setPagination] = React.useState({
     count: 0,
     from: 0,
