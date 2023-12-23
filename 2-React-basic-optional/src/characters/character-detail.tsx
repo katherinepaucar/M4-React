@@ -41,16 +41,17 @@ export const CharacterDetailPage: React.FC = () => {
               <CardMedia
                 component="img"
                 height="250"
-                image={character?.image}
+                image={character.image}
                 alt="green iguana"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   <p>User Id: {id}</p>
-                  <p>{character?.name}</p>
+                  <p>{character.name}</p>
+                  <p>{character.gender}</p>
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {character?.status}
+                  {character.status}
                 </Typography>
               </CardContent>
             </CardActionArea>
