@@ -11,6 +11,7 @@ import {
 } from "./model";
 
 export const CharacterPage: React.FC = () => {
+  const pageDefault=1;
   const [searchForm, setSearchForm] = React.useState<SearchName>(
                                               createEmptyForm()
                                             );
@@ -18,7 +19,7 @@ export const CharacterPage: React.FC = () => {
   const [error, setError] = React.useState(null);
   const [debounceSearch] = useDebounce(searchForm, 700);
   const [paginationData, SetPaginationData] = React.useState<InfoPagination>();
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(pageDefault);
   React.useEffect(() => {
     fetch(
       `https://rickandmortyapi.com/api/character?page=${page}&name=${debounceSearch.name}`
@@ -40,7 +41,7 @@ export const CharacterPage: React.FC = () => {
     }
   };
   const getData = (res: APIResponse<Character[]>) => {
-    console.log(res);
+   //  console.log(res);
     if(res){
       if (res.results && (res.results as Character[])) {
         const data = res.results as Character[];
@@ -59,10 +60,11 @@ export const CharacterPage: React.FC = () => {
 
   const updateFieldValue =
     (name: keyof SearchName) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e);
+      // console.log(e);
       setSearchForm({
         [name]: e.target.value,
       });
+      setPage(pageDefault);
       // console.log('updateFieldValue e')
     };
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
