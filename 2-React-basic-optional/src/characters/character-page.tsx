@@ -1,63 +1,60 @@
 import React from "react";
-import { SearchContext } from "../context/search.context";
-import {
-  Button,
-  TextField,
-} from "@mui/material";
-
+import { Pagination, TextField } from "@mui/material";
 import { CharacterList } from "./character-list";
 import { useDebounce } from "use-debounce";
-import { APIResponse, Character, SearchName, createEmptyForm } from "./model";
-
+import {
+  APIResponse,
+  Character,
+  InfoPagination,
+  SearchName,
+  createEmptyForm,
+} from "./model";
 
 export const CharacterPage: React.FC = () => {
-  const { searchValue, setNewValue } = React.useContext(SearchContext);
   const [searchForm, setSearchForm] = React.useState<SearchName>(
-                           createEmptyForm());
-
+                                              createEmptyForm()
+                                            );
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
   const [debounceSearch] = useDebounce(searchForm, 700);
-  console.log('debounceSearch', debounceSearch)
-  const perPage = 5;
-  const defaultPage= 1;
-  const [totalElement, setTotalElement] = React.useState<number>(0);
-  const [newData, setNewData] = React.useState({
-    from: 0,
-    to: perPage,
-  });
+  const [paginationData, SetPaginationData] = React.useState<InfoPagination>();
+  const [page, setPage] = React.useState(1);
   React.useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character?name=${debounceSearch.name}`)
+    fetch(
+      `https://rickandmortyapi.com/api/character?page=${page}&name=${debounceSearch.name}`
+    )
       .then(handleError)
-      .then((res) => getData(res, newData.from, newData.to))
+      .then((res) => getData(res))
       .catch((err) => {
         console.log(err);
-        setError('Ha ocurrido un error');
+        setError("Ha ocurrido un error");
         setCharacters([]);
-        setTotalElement(0);
       });
-  }, [debounceSearch.name]);
+  }, [debounceSearch.name, page]);
 
-  const handleError = response => {
-    if (!response.ok) { 
-        throw Error(response.statusText);
+  const handleError = (response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
     } else {
-        return response.json();
+      return response.json();
     }
-  }; 
-  const getData = (res: APIResponse<Character[]>, from: number, to: number) => {
-    console.log(res)
-    /*console.log("from", from);
-    console.log("to", to);*/
-    if (res.results && (res.results as Character[])) {
-      const data = (res.results as Character[]);
-      setCharacters(data);
-      setTotalElement((res.results as Character[]).length);
-      if(error){
+  };
+  const getData = (res: APIResponse<Character[]>) => {
+    console.log(res);
+    if(res){
+      if (res.results && (res.results as Character[])) {
+        const data = res.results as Character[];
+        setCharacters(data);
+      }
+      if (res.info && (res.info as InfoPagination)) {
+        const pagination = res.info as InfoPagination;
+        SetPaginationData(pagination);
+      }
+      if (error) {
         setError(null);
       }
-
     }
+
   };
 
   const updateFieldValue =
@@ -66,9 +63,12 @@ export const CharacterPage: React.FC = () => {
       setSearchForm({
         [name]: e.target.value,
       });
-      //  console.log('updateFieldValue e')
+      // console.log('updateFieldValue e')
     };
-
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+      setPage(value);
+    };
+  
 
   return (
     <>
@@ -86,14 +86,14 @@ export const CharacterPage: React.FC = () => {
         </form>
         <CharacterList characters={characters}></CharacterList>
         {error && <p className="text-error">{error}</p>}
-       {/* 
-        <BasicPagination
-          pageSize={perPage}
-          totalElement={totalElement}
-          defaultPage = {defaultPage}
-          search = {searchValue}
-          updateData={updateData}
-        />*/}
+        {characters && characters.length > 0 &&
+         <Pagination
+          count={paginationData?.pages}
+          page={page}
+          onChange={handleChange}
+          variant="outlined"
+          color="secondary"
+        />}
       </div>
     </>
   );

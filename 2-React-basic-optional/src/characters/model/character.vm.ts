@@ -14,8 +14,8 @@ export interface Character {
 export interface InfoPagination{
     count: number;
     next: string;
-    pages: 42;
-    prev: any;
+    pages: number;
+    prev: string;
 }
 export interface APIResponse<T> {
     info: InfoPagination;
