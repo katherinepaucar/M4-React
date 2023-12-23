@@ -5,19 +5,23 @@ import { useDebounce } from "use-debounce";
 import {
   APIResponse,
   Character,
+  ErrorForms,
   InfoPagination,
-  SearchName,
+  SearchForm,
   createEmptyForm,
+  createEmptyFormError,
+  formValidation,
 } from "./model";
 
 export const CharacterPage: React.FC = () => {
   const pageDefault=1;
-  const [searchForm, setSearchForm] = React.useState<SearchName>(
+  const [searchForm, setSearchForm] = React.useState<SearchForm>(
                                               createEmptyForm()
                                             );
   const [debounceSearch] = useDebounce(searchForm, 700);
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
+  const [errorValidation, setErrorValidation] = React.useState<ErrorForms>(createEmptyFormError());
   const [paginationData, SetPaginationData] = React.useState<InfoPagination>();
   const [page, setPage] = React.useState(pageDefault);
   React.useEffect(() => {
@@ -57,12 +61,23 @@ export const CharacterPage: React.FC = () => {
     }
 
   };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  }
 
   const updateFieldValue =
-    (name: keyof SearchName) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: keyof SearchForm) => (e: React.ChangeEvent<HTMLInputElement>) => {
       // console.log(e);
+      formValidation.validateField(field, e.target.value)
+      .then(validationResult => {
+        console.log(validationResult);
+        setErrorValidation({
+          ...errorValidation,
+          [field]: validationResult.message as string,
+        })
+      })
       setSearchForm({
-        [name]: e.target.value,
+        [field]: e.target.value,
       });
       setPage(pageDefault);
       // console.log('updateFieldValue e')
@@ -70,22 +85,22 @@ export const CharacterPage: React.FC = () => {
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
       setPage(value);
     };
-  
+ 
 
   return (
     <>
       <div className="container">
         <h2>RICK & MORTY LIST </h2>
-        <form className="form-list">
+        <form className="form-list" onSubmit={handleSubmit}>
           <TextField
             id="standard-basic"
             label="Name"
             variant="standard"
             value={searchForm.name}
-            required
             onChange={updateFieldValue("name")}
           />
         </form>
+        <span className="text-error">{errorValidation.name && errorValidation.name}</span>
         <CharacterList characters={characters}></CharacterList>
         {error && <p className="text-error">{error}</p>}
         {characters && characters.length > 0 &&

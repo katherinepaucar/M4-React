@@ -64,9 +64,9 @@ export const ListPage: React.FC = () => {
     setNewValue(searchForm.org);
   };
   const updateFieldValue =
-    (name: keyof Filter) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: keyof Filter) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchForm({
-        [name]: e.target.value,
+        [field]: e.target.value,
       });
       //  console.log('updateFieldValue e')
     };
