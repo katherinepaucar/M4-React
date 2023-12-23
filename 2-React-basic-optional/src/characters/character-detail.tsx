@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { CharacterInfo } from "./model";
-import{
+import {
   Card,
   CardActionArea,
   CardActions,
@@ -9,7 +9,7 @@ import{
   CardMedia,
   Typography,
 } from "@mui/material";
-import   "./character-styles.css";
+import "./character-styles.css";
 export const CharacterDetailPage: React.FC = () => {
   const { id } = useParams();
   const [character, setCharacter] = React.useState<CharacterInfo>(null);
@@ -35,29 +35,36 @@ export const CharacterDetailPage: React.FC = () => {
   return (
     <>
       <div className="container-detail">
-        <Card sx={{ maxWidth: 500 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="250"
-              image={character?.image}
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                <p>User Id: {id}</p>
-                <p>{character?.name}</p>
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {character?.status}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-          <Link to="/character-list">Back to Rick & Morty List Page</Link>
-          </CardActions>
-        </Card>
-       
+        {character && (
+          <Card sx={{ maxWidth: 500 }}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="250"
+                image={character?.image}
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  <p>User Id: {id}</p>
+                  <p>{character?.name}</p>
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {character?.status}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Link to="/character-list">Back to Rick & Morty List Page</Link>
+            </CardActions>
+          </Card>
+        )}
+        {error && (
+          <div>
+            <p className="text-error">{error}</p>
+            <Link to="/character-list">Back to Rick & Morty List Page</Link>
+          </div>
+        )}
       </div>
     </>
   );
