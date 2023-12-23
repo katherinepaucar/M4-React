@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { LoginPage } from "./login";
 import { DetailPage } from "./members-list/detail";
 import { SearchProvider } from "./context/search.context";
@@ -7,18 +12,46 @@ import { ListPage } from "./members-list/list";
 import ResponsiveAppBar from "./navBar";
 import { CharacterPage } from "./characters/character-page";
 import { CharacterDetailPage } from "./characters/character-detail";
+import { Layout } from "./layout";
 
 export const App = () => {
   return (
     <SearchProvider>
-     <ResponsiveAppBar/>
-        <Router>
+      <Router>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          <Route path="/list" element={<ListPage />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
-          <Route path="/character-list" element={<CharacterPage />} />
-          <Route path="/character-detail/:id" element={<CharacterDetailPage />} />
+          <Route
+            path="/list"
+            element={
+              <Layout>
+                <ListPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/detail/:id"
+            element={
+              <Layout>
+                <DetailPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/character-list"
+            element={
+              <Layout>
+                <CharacterPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/character-detail/:id"
+            element={
+              <Layout>
+                <CharacterDetailPage />
+              </Layout>
+            }
+          />
         </Routes>
       </Router>
     </SearchProvider>
