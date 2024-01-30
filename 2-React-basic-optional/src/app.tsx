@@ -34,6 +34,7 @@ export const App = () => {
               </Layout>
             }
           />
+          
           <Route
             path="/character-list"
             element={
