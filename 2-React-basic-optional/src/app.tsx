@@ -11,10 +11,12 @@ import { ListPage } from "./members-list/list";
 import { CharacterPage } from "./characters/character-page";
 import { CharacterDetailPage } from "./characters/character-detail";
 import { Layout } from "./layout/layout";
+import { SearchCharacterProvider } from "./context/search-character.context";
 
 export const App = () => {
   return (
     <SearchProvider>
+      <SearchCharacterProvider>
       <Router>
         <Routes>
           <Route path="/" element={<LoginPage />} />
@@ -53,6 +55,7 @@ export const App = () => {
           />
         </Routes>
       </Router>
+      </SearchCharacterProvider>
     </SearchProvider>
   );
 };
