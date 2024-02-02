@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { LoginPage } from "./login";
 import { DetailPage } from "./members-list/detail";
-import { SearchProvider } from "./context/search.context";
+import { SearchProvider } from "./context/search-member.context";
 import { ListPage } from "./members-list/list";
 import { CharacterPage } from "./characters/character-page";
 import { CharacterDetailPage } from "./characters/character-detail";

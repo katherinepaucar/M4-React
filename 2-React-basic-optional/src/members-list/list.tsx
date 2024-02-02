@@ -1,6 +1,6 @@
 import React from "react";
 import { Filter, createEmptyFilter } from "./models";
-import { SearchContext } from "../context/search.context";
+import { SearchContext } from "../context/search-member.context";
 import { Button, TextField } from "@mui/material";
 import { BasicPagination } from "./pagination";
 import { MemberList } from "./member-list";
