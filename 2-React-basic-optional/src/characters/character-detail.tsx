@@ -42,7 +42,7 @@ export const CharacterDetailPage: React.FC = () => {
                 component="img"
                 height="250"
                 image={character.image}
-                alt="green iguana"
+                alt={character.image}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

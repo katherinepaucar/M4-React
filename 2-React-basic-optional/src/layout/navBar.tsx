@@ -7,9 +7,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { Link, NavLink } from 'react-router-dom';
 
 const pages = [ {title:'GITHUB List', link: '/list'}, {title:'Rick & Morty List', link: '/character-list'}];
 
@@ -18,34 +17,29 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(event);
+    // console.log(event);
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+      <Container maxWidth="xl" >
+        <Toolbar disableGutters >
+          <AdbIcon sx={{ display: { xs: 'none', md: 'block' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', md: 'block' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -56,7 +50,7 @@ function ResponsiveAppBar() {
             LISTADO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'block', md: 'none', width: 1 }}}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -85,22 +79,26 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page.title} href={page.link} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.title}</Typography>
-                </MenuItem>
+              {pages.map((page, index) => (
+                <NavLink               
+                className={({ isActive }) => {
+                  return isActive ? "is-active linkMenu " : "linkMenu"
+                }}  
+                key={index}   
+                to={page.link} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="left">{page.title}</Typography>
+                </NavLink>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'block', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: 'block', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -111,16 +109,18 @@ function ResponsiveAppBar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.title}
-                href={page.link}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'block'} }}>
+            {pages.map((page, index) => (
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive ? "is-active linkMenu " : "linkMenu"
+                }}
+                key={index}   
+                to={page.link}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.title}
-              </Button>
+              </NavLink>
             ))}
           </Box>
 

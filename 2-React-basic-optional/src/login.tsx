@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,29 +20,39 @@ export const LoginPage: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={handleNavigation}>
-        <h2>Hello from login page</h2>
+      <div className="formLogin">
+        <form onSubmit={handleNavigation}>
+          <h2>Hello from login page</h2>
 
-        <div>
           <div>
-            <label>Username: </label>
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Username"
+                variant="outlined"
+                sx={{ mt: 1 }}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="password"
+                variant="outlined"
+                sx={{ mt: 1 }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </div>
           <div>
-            <label>Password: </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <Button sx={{ mt: 1 }} variant="contained" type="submit">
+              Login
+            </Button>
           </div>
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
+        </form>
+      </div>
     </>
   );
 };

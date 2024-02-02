@@ -1,3 +1,9 @@
+.containerRoot{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
 .container{
   display: grid;
   grid-template-columns: 1fr;
@@ -16,4 +22,27 @@ img{
 }
 .text-error{
   color:red;
+}
+/*NavBar*/
+.linkMenu{
+  text-decoration: none;
+  color:white;
+  margin:  10px;
+}
+.is-active {
+  border-bottom: 5px solid darkblue;
+}
+
+/*FormLogin*/
+.formLogin{
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 899px) { 
+.linkMenu{
+  color:black;
+  text-align: left;
+  display: block;
+}
 }
