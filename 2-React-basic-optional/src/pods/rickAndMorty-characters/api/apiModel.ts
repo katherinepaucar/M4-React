@@ -1,10 +1,3 @@
-/*export interface Character {
-    id: string;
-    name: string;
-    status: string;
-    image: string;
-  }*/
-
   export interface CharacterApi {
     id: number
     name: string
@@ -30,13 +23,6 @@
     url: string
   }
   
-  export interface CharacterInfo {
-    id: string;
-    name: string;
-    status: string;
-    image: string;
-    gender: string;
-  }
 export interface InfoPagination{
     count: number;
     next: string;

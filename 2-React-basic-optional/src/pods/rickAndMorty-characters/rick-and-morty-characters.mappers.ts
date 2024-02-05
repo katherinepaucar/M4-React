@@ -1,4 +1,4 @@
-import * as vm from "./rickAndMorty-characters.vm";
+import * as vm from "./rick-and-morty-characters.vm";
 import * as api from "./api/apiModel";
 export const mapCharacterFromApiToVm = (character: api.CharacterApi):vm.Character => (
     {

@@ -9,7 +9,7 @@ import {
   styled,
   tableCellClasses,
 } from "@mui/material";
-import { Character } from "./rickAndMorty-characters.vm";
+import { Character } from "./rick-and-morty-characters.vm";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
