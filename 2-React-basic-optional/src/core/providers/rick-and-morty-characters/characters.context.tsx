@@ -1,9 +1,9 @@
 import React from "react";
 import { useDebounce } from "use-debounce";
-import { SearchForm, createEmptyForm } from "../../pods/rickAndMorty-characters/form";
-import { Character, paginationData } from "../../pods/rickAndMorty-characters/rick-and-morty-characters.vm";
-import { getCharacterList } from "../../pods/rickAndMorty-characters/api";
-import { ResponseFromApiToVm } from "../../pods/rickAndMorty-characters/rick-and-morty-characters.mappers";
+import { SearchForm, createEmptyForm } from "../../../pods/rickAndMorty-characters/form";
+import { Character, paginationData } from "../../../pods/rickAndMorty-characters/rick-and-morty-characters.vm";
+import { getCharacterList } from "../../../pods/rickAndMorty-characters/api";
+import { ResponseFromApiToVm } from "../../../pods/rickAndMorty-characters/rick-and-morty-characters.mappers";
 
 
 const defaultPage = 1;

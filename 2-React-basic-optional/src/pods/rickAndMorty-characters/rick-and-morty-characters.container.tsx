@@ -2,10 +2,10 @@ import React from "react";
 import { Pagination, TextField } from "@mui/material";
 import { CharacterList } from "./rick-and-morty-characters.component";
 import { ErrorForms, SearchForm, createEmptyFormError, formValidation } from "./form";
-import { SearchCharacterContext } from "../../core/rick-and-morty-characters/characters.context";
+import { SearchCharacterContext } from "../../core/providers/rick-and-morty-characters/characters.context";
 
 
-export const CharacterPage: React.FC = () => {
+export const CharacterContainer: React.FC = () => {
   const {
     searchForm,
     setSearchForm,

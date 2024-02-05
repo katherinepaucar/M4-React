@@ -12,10 +12,8 @@ import { CharacterPage } from "./characters/character-page";
 import { CharacterDetailPage } from "./characters/character-detail";
 import { Layout } from "./layout/layout";
 import { SearchCharacterProvider } from "./context/search-character.context";
-
-export const App = () => {
-  return (
-    <SearchProvider>
+import { RouterComponent } from "./core/router/router.component";
+    /*<SearchProvider>
       <SearchCharacterProvider>
       <Router>
         <Routes>
@@ -57,5 +55,10 @@ export const App = () => {
       </Router>
       </SearchCharacterProvider>
     </SearchProvider>
-  );
+  );*/
+export const App = () => {
+  return (
+    <RouterComponent />
+    )
+
 };

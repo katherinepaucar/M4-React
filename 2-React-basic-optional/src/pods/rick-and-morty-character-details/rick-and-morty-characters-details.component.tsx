@@ -9,7 +9,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import "./rick-and-morty-characters-details.styles.css";
+// import './'
 import { CharacterInfo } from "./rick-and-morty-characters-details.vm";
 import { getCharacterDetail } from "./api";
 export const CharacterDetail: React.FC = () => {
