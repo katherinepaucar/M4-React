@@ -15,18 +15,3 @@ export const switchRoutes: SwitchRoutes = {
     characterList: "/character-list",
     characterDetail: "/character-detail/:id"
 }
-
-/*interface Routes extends Omit<SwitchRoutes, {"memberDetail"}>{
-    memberDetail: (id:string) => string
-
-}*/
-/*interface Routes extends Omit<SwitchRoutes, "characterDetail">{
-    characterDetail: (id:string) => string
-
-}*/
-
-/*export const routes: Routes = {
-    ...switchRoutes
-   //  memberDetail: (id) => generatePath(switchRoutes.memberDetail, {id}),
-    // characterDetail:(id) => generatePath(switchRoutes.characterDetail,{id})
-}*/
