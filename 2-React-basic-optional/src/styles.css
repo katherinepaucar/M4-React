@@ -19,34 +19,11 @@ img{
   width: 80px;
 }
 
-.form-list{
+/*.form-list{
   display: flex;
   padding: 2px;
   gap: 12px;
-}
+}*/
 .text-error{
   color:red;
-}
-/*NavBar*/
-.linkMenu{
-  text-decoration: none;
-  color:white;
-  margin:  10px;
-}
-.is-active {
-  border-bottom: 5px solid darkblue;
-}
-
-/*FormLogin*/
-.formLogin{
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 899px) { 
-.linkMenu{
-  color:black;
-  text-align: left;
-  display: block;
-}
 }

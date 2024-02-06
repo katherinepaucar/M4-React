@@ -8,7 +8,8 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './navBar.styles.css'
 
 const pages = [ {title:'GITHUB List', link: '/list'}, {title:'Rick & Morty List', link: '/character-list'}];
 

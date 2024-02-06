@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import React from "react";
+import './login.styles.css'
 interface Props {
     onLogin: (username: string, password: string) => void;
   }
