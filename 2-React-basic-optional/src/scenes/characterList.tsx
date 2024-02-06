@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Layout } from "../layout/layout";
-import { CharacterContainer } from "../pods/rickAndMorty-characters/rick-and-morty-characters.container";
 import { SearchCharacterProvider } from "../core/providers/rick-and-morty-characters/characters.context";
+import { CharacterContainer } from "../pods/rickAndMorty-characters";
 
 
 export const CharacterListPage: React.FC = () => {
