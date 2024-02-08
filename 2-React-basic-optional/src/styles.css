@@ -8,22 +8,7 @@ body{
   grid-template-columns: 1fr;
   grid-template-rows: auto;
 }
-.container{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  place-items: center;
-  grid-gap: 10px;
-}
-img{
-  width: 80px;
-}
 
-/*.form-list{
-  display: flex;
-  padding: 2px;
-  gap: 12px;
-}*/
 .text-error{
   color:red;
 }
