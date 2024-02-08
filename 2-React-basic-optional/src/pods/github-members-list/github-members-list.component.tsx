@@ -1,9 +1,6 @@
 import React from "react";
-
-
 import { Button, TextField } from "@mui/material";
-import { createEmptyFilter } from "../../members-list/models";
-import { Filter } from "./filter";
+import { Filter, createEmptyFilter } from "./filter";
 import { BasicPagination, MemberList } from "./components";
 import { SearchMemberContext } from "../../core/providers/github-members-list/search-member.context";
 import './github-members-list.styles.css'
