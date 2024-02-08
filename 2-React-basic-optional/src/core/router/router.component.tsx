@@ -7,10 +7,6 @@ import { MemberDetailPage } from "../../scenes/memberDetail";
 
 
 export const RouterComponent: React.FC = () => {
-    /**
-     *         
-  
-     */
   return (
     <Router>
       <Routes>

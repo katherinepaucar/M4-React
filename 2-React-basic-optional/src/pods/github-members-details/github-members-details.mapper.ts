@@ -6,5 +6,5 @@ export const mapMemberFromApiToVm = (
 ): vm.MemberEntity => ({
   id: member.id.toString(),
   login: member.login,
-  avataUrl: member.url
+  avatarUrl: member.avatar_url
 });
