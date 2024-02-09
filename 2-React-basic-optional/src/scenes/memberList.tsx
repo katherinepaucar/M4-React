@@ -6,10 +6,8 @@ import { MemberListContainer } from "../pods/github-members-list";
 export const MemberListPage: React.FC = () => {
   
   return (
-    <SearchMemberProvider>
     <Layout>
       <MemberListContainer/>
     </Layout>
-    </SearchMemberProvider>
   );
 };

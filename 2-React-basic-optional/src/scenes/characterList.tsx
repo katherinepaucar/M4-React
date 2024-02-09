@@ -9,10 +9,8 @@ export const CharacterListPage: React.FC = () => {
   const { id } = useParams();
   
   return (
-    <SearchCharacterProvider>
     <Layout>
       <CharactersContainer/>
     </Layout>
-    </SearchCharacterProvider>
   );
 };
