@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { switchRoutes } from "./router";
-import { CharacterDetailPage, CharacterListPage, LoginPage } from "../../scenes";
-import { MemberListPage } from "../../scenes/memberList";
-import { MemberDetailPage } from "../../scenes/memberDetail";
+import { CharacterDetailPage, CharacterListPage, LoginPage, MemberDetailPage, MemberListPage } from "../../scenes";
+
 
 
 export const RouterComponent: React.FC = () => {
