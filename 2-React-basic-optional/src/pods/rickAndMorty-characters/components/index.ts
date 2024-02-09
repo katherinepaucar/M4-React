@@ -1,0 +1,1 @@
+export * from './rick-and-morty-characters-table.component';

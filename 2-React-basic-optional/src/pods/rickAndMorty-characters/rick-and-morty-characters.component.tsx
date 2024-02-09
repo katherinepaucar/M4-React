@@ -1,68 +1,79 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  styled,
-  tableCellClasses,
-} from "@mui/material";
-import { Character } from "./rick-and-morty-characters.vm";
+import { Pagination, TextField } from "@mui/material";
+import { ErrorForms, SearchForm, createEmptyFormError, formValidation } from "./form";
+import { SearchCharacterContext } from "../../core/rick-and-morty-context/characters.context";
+import {CharacterTableList} from './components/rick-and-morty-characters-table.component'
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-interface Props{
-  characters: Character[];
-}
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
+export const CharactersComponent: React.FC = () => {
+  const {
+    searchForm,
+    setSearchForm,
+    characters,
+    paginationData,
+    defaultPage,
+    page,
+    setPage,
+    error,
+  } = React.useContext(SearchCharacterContext);
+  const [errorValidation, setErrorValidation] = React.useState<ErrorForms>(
+    createEmptyFormError()
+  );
 
-export const CharacterList: React.FC<Props> = (props) => {
-    const {characters} = props;
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  const updateFieldValue =
+    (field: keyof SearchForm) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      // console.log(e);
+      formValidation
+        .validateField(field, e.target.value)
+        .then((validationResult) => {
+          console.log(validationResult);
+          setErrorValidation({
+            ...errorValidation,
+            [field]: validationResult.message as string,
+          });
+        });
+      setSearchForm({
+        [field]: e.target.value,
+      });
+      console.log("page", page);
+      setPage(defaultPage);
+      // console.log('updateFieldValue e')
+    };
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   return (
     <>
-      <Table sx={{ width: 600 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">Image</StyledTableCell>
-            <StyledTableCell align="center">Id</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
-            <StyledTableCell align="center">Name</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {characters &&
-            characters.length > 0 &&
-            characters.map((character) => (
-              <StyledTableRow key={character.id}>
-                <StyledTableCell align="center" component="th" scope="row">
-                  <img src={character.image} />
-                </StyledTableCell>
-                <StyledTableCell align="center">{character.id}</StyledTableCell>
-                <StyledTableCell align="center">{character.status}</StyledTableCell>
-                <StyledTableCell align="center">
-                  <Link to={`/character-detail/${character.id}`}>{character.name}</Link>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-        </TableBody>
-      </Table>
+      <div className="container">
+        <h2>RICK & MORTY LIST </h2>
+        <form className="form-list" onSubmit={handleSubmit}>
+          <TextField
+            id="standard-basic"
+            label="Name"
+            variant="standard"
+            value={searchForm.name}
+            onChange={updateFieldValue("name")}
+          />
+        </form>
+        <span className="text-error">
+          {errorValidation.name && errorValidation.name}
+        </span>
+        <CharacterTableList characters={characters}></CharacterTableList>
+        {error && <p className="text-error">{error}</p>}
+        {characters && characters.length > 0 && (
+          <Pagination
+            count={paginationData?.pages}
+            page={page}
+            onChange={handleChange}
+            variant="outlined"
+            color="secondary"
+          />
+        )}
+      </div>
     </>
   );
 };
