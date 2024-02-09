@@ -1,6 +1,8 @@
 import React from "react";
 import { Layout } from "../layout/layout";
-import { MemberDetailContainer } from "../pods/github-members-details/github-members-details.container";
+import { MemberDetailContainer } from "../pods/github-members-details";
+
+
 
 export const MemberDetailPage: React.FC = () => {
  
