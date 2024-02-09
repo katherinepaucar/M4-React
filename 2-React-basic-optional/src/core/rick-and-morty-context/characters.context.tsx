@@ -2,8 +2,9 @@ import React from "react";
 import { useDebounce } from "use-debounce";
 import { SearchForm, createEmptyForm } from "../../pods/rickAndMorty-characters/form";
 import { Character, paginationData } from "../../pods/rickAndMorty-characters/rick-and-morty-characters.vm";
-import { getCharacterList } from "../../pods/rickAndMorty-characters/api";
+import { APIResponse, getCharacterList } from "../../pods/rickAndMorty-characters/api";
 import { ResponseFromApiToVm } from "../../pods/rickAndMorty-characters/rick-and-morty-characters.mappers";
+
 
 
 const defaultPage = 1;
@@ -40,15 +41,16 @@ export const SearchCharacterProvider: React.FC<React.PropsWithChildren> = ({
       });
   }, [debounceSearch.name, page]);
 
-  const handleError = (response) => {
+  const handleError = (response: Response) => {
+   //  console.log('response', response)
     if (!response.ok) {
       throw Error(response.statusText);
     } else {
       return response.json();
     }
   };
-  const getData = (res: any) => {
-   //  console.log(res);
+  const getData = (res: APIResponse) => {
+     console.log(res);
     if(res){
       const response = ResponseFromApiToVm(res)
       if (response.results) {

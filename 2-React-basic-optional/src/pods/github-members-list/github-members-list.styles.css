@@ -8,4 +8,8 @@
   img{
     width: 80px;
   }
-  
+.form-list{
+  display: flex;
+  padding: 2px;
+  gap: 12px;
+}

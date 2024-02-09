@@ -50,7 +50,7 @@ export const SearchMemberProvider: React.FC<React.PropsWithChildren> = ({
       });
   }, [searchValue, newPagination.from, newPagination.to]);
 
-  const handleError = (response) => {
+  const handleError = (response: Response) => {
     if (!response.ok) {
       throw Error(response.statusText);
     } else {
