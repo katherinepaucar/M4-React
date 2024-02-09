@@ -2,7 +2,7 @@ import React from "react";
 import { Button, TextField } from "@mui/material";
 import { Filter, createEmptyFilter } from "./filter";
 import { BasicPagination, MemberList } from "./components";
-import { SearchMemberContext } from "../../core/providers/github-members-list/search-member.context";
+import { SearchMemberContext } from "../../core/github-members-context/search-member.context";
 import './github-members-list.styles.css'
 
 
