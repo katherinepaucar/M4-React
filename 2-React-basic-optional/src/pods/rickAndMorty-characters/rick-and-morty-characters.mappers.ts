@@ -8,7 +8,7 @@ export const mapCharacterFromApiToVm = (character: api.CharacterApi):vm.Characte
         name: character.name,
     }
 )
-export const mapInfoPaginationFromApiToVm = (info: api.InfoPagination):vm.paginationData => (
+export const mapInfoPaginationFromApiToVm = (info: api.InfoPagination):vm.paginationDataRM => (
     {
         next: info.next,
         totalElements: info.count,
