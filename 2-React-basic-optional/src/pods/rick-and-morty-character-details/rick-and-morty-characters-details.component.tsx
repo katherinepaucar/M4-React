@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   Card,
@@ -11,29 +11,15 @@ import {
 } from "@mui/material";
 import './rick-and-morty-character-details.styles.css'
 import { CharacterInfo } from "./rick-and-morty-characters-details.vm";
-import { getCharacterDetail } from "./api";
-export const CharacterDetail: React.FC = () => {
-  const { id } = useParams();
-  const [character, setCharacter] = React.useState<CharacterInfo>(null);
-  const [error, setError] = React.useState(null);
+interface Props {
+  character: CharacterInfo;
+  error: string;
+  id: string;
+}
 
-  React.useEffect(() => {
-    getCharacterDetail(id)
-      .then(handleError)
-      .then((res) => setCharacter(res))
-      .catch((err) => {
-        console.log(err);
-        setError("Ha ocurrido un error");
-        setCharacter(null);
-      });
-  }, []);
-  const handleError = (response) => {
-    if (!response.ok) {
-      throw Error(response.status);
-    } else {
-      return response.json();
-    }
-  };
+export const CharacterDetail: React.FC<Props> = (props) => {
+ const {character, error, id } = props
+  
   return (
     <>
       <div className="container-detail">
