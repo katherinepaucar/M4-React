@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { MemberEntity } from "./github-members-details.vm";
-import { getMemberDetailFinal } from "./api";
+interface Props {
+  member: MemberEntity;
+}
+export const MemberDetailComponent: React.FC<Props> = (props) => {
 
-export const MemberDetailComponent: React.FC = () => {
-  const { id } = useParams();
- const [member, setMember] = useState<MemberEntity>(null);
-  React.useEffect(() => {
-    getMemberDetailFinal(id).then(res => setMember(res))
-  }, []);
+  const { member } = props;
 
   return (
     <>
