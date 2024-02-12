@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { switchRoutes } from "./router";
+
 import { CharacterDetailPage, CharacterListPage, LoginPage, MemberDetailPage, MemberListPage } from "../../scenes";
+import { switchRoutes } from "./routes";
 
 
 

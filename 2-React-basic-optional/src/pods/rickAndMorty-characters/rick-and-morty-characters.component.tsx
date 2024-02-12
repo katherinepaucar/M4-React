@@ -1,7 +1,7 @@
 import React from "react";
 import { Pagination, TextField } from "@mui/material";
 import { ErrorForms, SearchForm, createEmptyFormError, formValidation } from "./form";
-import { SearchCharacterContext } from "../../core/rick-and-morty-context/characters.context";
+import { SearchCharacterContext } from "../../core/provider/rick-and-morty/characters.context";
 import {CharacterTableList} from './components/rick-and-morty-characters-table.component'
 
 export const CharactersComponent: React.FC = () => {

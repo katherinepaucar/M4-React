@@ -1,21 +1,10 @@
 import React from "react";
-import { MemberEntity } from "../../pods/github-members-list/github-members-list.vm";
-import { getMemberCollection } from "../../pods/github-members-list/api/api";
-import { mapMemberCollectionFromApiToVm } from "../../pods/github-members-list/github-members-list.mapper";
-import { MemberEntityAPI } from "../../pods/github-members-list/api";
-import { PaginationData, SplitData } from "../../pods/github-members-list/pagination";
-
+import { MemberEntity, mapMemberCollectionFromApiToVm } from "../../../pods/github-members-list";
+import { PaginationData, SplitData } from "../../../pods/github-members-list/pagination";
+import { MemberEntityAPI, getMemberCollection } from "../../../pods/github-members-list/api";
+import { SearchMemberContext } from "./search-member.context";
 const perPage = 5;
 const defaultPage = 1;
-interface SearchContextModel {
-  searchValue: string;
-  setSearchValue: (newValue: string) => void;
-  members: MemberEntity[];
-  error: string;
-  infoPagination: PaginationData;
-  setNewPagination: (newValue: SplitData) => void;
-}
-export const SearchMemberContext = React.createContext<SearchContextModel>(null);
 export const SearchMemberProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {

@@ -1,24 +1,15 @@
 import React from "react";
 import { useDebounce } from "use-debounce";
-import { SearchForm, createEmptyForm } from "../../pods/rickAndMorty-characters/form";
-import { Character, paginationData } from "../../pods/rickAndMorty-characters/rick-and-morty-characters.vm";
-import { APIResponse, getCharacterList } from "../../pods/rickAndMorty-characters/api";
-import { ResponseFromApiToVm } from "../../pods/rickAndMorty-characters/rick-and-morty-characters.mappers";
+import { SearchForm, createEmptyForm } from "../../../pods/rickAndMorty-characters/form";
+import { Character, paginationData } from "../../../pods/rickAndMorty-characters/rick-and-morty-characters.vm";
+import { APIResponse, getCharacterList } from "../../../pods/rickAndMorty-characters/api";
+import { ResponseFromApiToVm } from "../../../pods/rickAndMorty-characters/rick-and-morty-characters.mappers";
+import { SearchCharacterContext } from "./characters.context";
 
 
 
 const defaultPage = 1;
-interface SearchCharacterContextModel {
-  searchForm: SearchForm;
-  setSearchForm: (value: SearchForm) => void;
-  characters: Character[];
-  error: string;
-  paginationData: paginationData;
-  page: number;
-  defaultPage: number
-  setPage: (value: number) => void;
-}
-export const SearchCharacterContext = React.createContext<SearchCharacterContextModel>(null);
+
 export const SearchCharacterProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
