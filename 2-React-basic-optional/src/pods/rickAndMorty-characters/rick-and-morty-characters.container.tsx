@@ -14,29 +14,21 @@ export const CharactersContainer: React.FC = () => {
   const [debounceSearch] = useDebounce(searchForm, 700);
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
-  const [paginationData, SetPaginationData] = React.useState<paginationDataRM>();
+  const [paginationData, SetPaginationData] = React.useState<paginationDataRM>(null);
   const [page, setPage] = React.useState(defaultPage);
   React.useEffect(() => {
     getCharacterList(page, debounceSearch.name)
-      .then(handleError)
       .then((res) => getData(res))
       .catch((err) => {
         console.log(err);
-        setError("Ha ocurrido un error");
+        setError(`Ha ocurrido un error ${err}`);
         setCharacters([]);
+        SetPaginationData(null);
       });
   }, [debounceSearch.name, page]);
 
-  const handleError = (response: Response) => {
-   //  console.log('response', response)
-    if (!response.ok) {
-      throw Error(response.statusText);
-    } else {
-      return response.json();
-    }
-  };
   const getData = (res: APIResponse) => {
-     console.log(res);
+   //   console.log(res);
     if(res){
       const response = ResponseFromApiToVm(res)
       if (response.results) {

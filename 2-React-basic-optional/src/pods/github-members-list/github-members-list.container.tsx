@@ -24,11 +24,10 @@ export const MemberListContainer: React.FC = () => {
   });
   React.useEffect(() => {
     getMemberCollection(searchValue)
-      .then(handleError)
       .then((res) => getData(res, newPagination.from, newPagination.to))
       .catch((err) => {
         console.log(err);
-        setError("Ha ocurrido un error");
+        setError(`Ha ocurrido un error ${err}`);
         setMembers([]);
         SetInfoPagination({
           perPage: perPage,
@@ -38,13 +37,6 @@ export const MemberListContainer: React.FC = () => {
       });
   }, [searchValue, newPagination.from, newPagination.to]);
 
-  const handleError = (response: Response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    } else {
-      return response.json();
-    }
-  };
   const getData = (res: MemberEntityAPI[], from: number, to: number) => {
     /*console.log("from", from);
     console.log("to", to);*/
