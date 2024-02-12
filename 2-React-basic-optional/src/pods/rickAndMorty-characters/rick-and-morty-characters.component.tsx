@@ -1,20 +1,21 @@
 import React from "react";
 import { Pagination, TextField } from "@mui/material";
 import { ErrorForms, SearchForm, createEmptyFormError, formValidation } from "./form";
-import { SearchCharacterContext } from "../../core/provider/rick-and-morty/characters.context";
 import {CharacterTableList} from './components/rick-and-morty-characters-table.component'
+import { Character, paginationDataRM } from "./rick-and-morty-characters.vm";
+const defaultPage = 1;
+interface Props {
+  characters: Character[];
+  error: string;
+  paginationData: paginationDataRM;
+  searchForm: SearchForm;
+  setSearchForm: (value: SearchForm) => void;
+  page: number;
+  setPage:(value: number) => void;
+}
+export const CharactersComponent: React.FC<Props> = (props) => {
+  const {searchForm, setSearchForm, characters, page, setPage,paginationData, error } = props;
 
-export const CharactersComponent: React.FC = () => {
-  const {
-    searchForm,
-    setSearchForm,
-    characters,
-    paginationData,
-    defaultPage,
-    page,
-    setPage,
-    error,
-  } = React.useContext(SearchCharacterContext);
   const [errorValidation, setErrorValidation] = React.useState<ErrorForms>(
     createEmptyFormError()
   );
@@ -38,12 +39,12 @@ export const CharactersComponent: React.FC = () => {
       setSearchForm({
         [field]: e.target.value,
       });
-      console.log("page", page);
+      // console.log("page", page);
       setPage(defaultPage);
       // console.log('updateFieldValue e')
     };
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+     setPage(value);
   };
 
   return (

@@ -4,7 +4,7 @@ export interface Character {
     status: string;
     image: string;
   }
-  export interface paginationData{
+  export interface paginationDataRM{
     totalElements: number;
     next: string;
     pages: number;
@@ -12,7 +12,7 @@ export interface Character {
 }
 
   export interface ResponseVM {
-    info: paginationData;
+    info: paginationDataRM;
     results:  Character[];
 
 }
