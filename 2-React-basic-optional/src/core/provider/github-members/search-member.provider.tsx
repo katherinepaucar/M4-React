@@ -3,14 +3,13 @@ import { MemberEntity, mapMemberCollectionFromApiToVm } from "../../../pods/gith
 import { PaginationData, SplitData } from "../../../pods/github-members-list/pagination";
 import { MemberEntityAPI, getMemberCollection } from "../../../pods/github-members-list/api";
 import { SearchMemberContext } from "./search-member.context";
-const perPage = 5;
-const defaultPage = 1;
+
 export const SearchMemberProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
 
   const [searchValue, setSearchValue] = React.useState("lemoncode");
-  const [members, setMembers] = React.useState<MemberEntity[]>([]);
+  /*const [members, setMembers] = React.useState<MemberEntity[]>([]);
   const [error, setError] = React.useState(null);
   const [infoPagination, SetInfoPagination] = React.useState<PaginationData>({
     perPage: perPage,
@@ -47,12 +46,12 @@ export const SearchMemberProvider: React.FC<React.PropsWithChildren> = ({
     }
   };
   const getData = (res: MemberEntityAPI[], from: number, to: number) => {
-    /*console.log("from", from);
-    console.log("to", to);*/
+  console.log("from", from);
+    console.log("to", to);
       const response = mapMemberCollectionFromApiToVm(res)
     if (response) {
       const data = response.slice(from, to);
-      setMembers(data);
+     setMembers(data);
       SetInfoPagination({
         perPage: 5,
         defaultPage: 1,
@@ -62,16 +61,12 @@ export const SearchMemberProvider: React.FC<React.PropsWithChildren> = ({
         setError(null);
       }
     }
-  };
+  };*/
   return (
     <SearchMemberContext.Provider
       value={{
         searchValue,
-        setSearchValue,
-        members,
-        error,
-        infoPagination,
-        setNewPagination,
+        setSearchValue
       }}
     >
       {children}
