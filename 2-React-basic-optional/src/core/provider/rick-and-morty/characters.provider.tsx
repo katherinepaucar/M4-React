@@ -15,7 +15,7 @@ export const SearchCharacterProvider: React.FC<React.PropsWithChildren> = ({
     <SearchCharacterContext.Provider
       value={{
         searchForm,
-        setSearchForm,
+        setSearchForm
               }}
     >
       {children}
