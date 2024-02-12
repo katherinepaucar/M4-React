@@ -5,7 +5,7 @@ import { CharacterInfo } from "./rick-and-morty-characters-details.vm";
 import { mapCharacterFromApiToVm } from "./rick-and-morty-characters-details.mappers";
 import { getCharacterDetail } from "./api";
 
-export const DetailContainer: React.FC = () => {
+export const CharacterDetailContainer: React.FC = () => {
   const { id } = useParams();
   const [character, setCharacter] = React.useState<CharacterInfo>(null);
   const [error, setError] = React.useState(null);
