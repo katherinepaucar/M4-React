@@ -13,7 +13,7 @@ export const CharactersContainer: React.FC = () => {
   const [debounceSearch] = useDebounce(searchForm, 700);
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
-  const [paginationData, SetPaginationData] =
+  const [paginationData, setPaginationData] =
     React.useState<paginationDataRM>(null);
   const [page, setPage] = React.useState(defaultPage);
   const onLoadCharacterList = () => {
@@ -21,12 +21,13 @@ export const CharactersContainer: React.FC = () => {
       .then((res) => {
         const response = ResponseFromApiToVm(res);
         setCharacters(response.results);
-        SetPaginationData(response.info);
+        setPaginationData(response.info);
+        setError(null);
       })
       .catch((err) => {
         setError(`Ha ocurrido un error ${err}`);
         setCharacters([]);
-        SetPaginationData(null);
+        setPaginationData(null);
       });
   };
 

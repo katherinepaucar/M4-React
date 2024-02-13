@@ -33,6 +33,7 @@ export const MemberListContainer: React.FC = () => {
           defaultPage: 1,
           totalElement: response.length,
         });
+        setError(null);
       })
       .catch((err) => {
         setError(`Ha ocurrido un error ${err}`);
