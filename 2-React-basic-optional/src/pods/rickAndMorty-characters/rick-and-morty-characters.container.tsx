@@ -7,55 +7,42 @@ import { Character, paginationDataRM } from "./rick-and-morty-characters.vm";
 import { SearchCharacterContext } from "../../core/provider/rick-and-morty/characters.context";
 const defaultPage = 1;
 export const CharactersContainer: React.FC = () => {
-  const {
-    searchForm,
-    setSearchForm,
-  } = React.useContext(SearchCharacterContext);
+  const { searchForm, setSearchForm } = React.useContext(
+    SearchCharacterContext
+  );
   const [debounceSearch] = useDebounce(searchForm, 700);
   const [characters, setCharacters] = React.useState<Character[]>([]);
   const [error, setError] = React.useState(null);
-  const [paginationData, SetPaginationData] = React.useState<paginationDataRM>(null);
+  const [paginationData, SetPaginationData] =
+    React.useState<paginationDataRM>(null);
   const [page, setPage] = React.useState(defaultPage);
-  React.useEffect(() => {
+  const onLoadCharacterList = () => {
     getCharacterList(page, debounceSearch.name)
-      .then((res) => getData(res))
+      .then((res) => {
+        const response = ResponseFromApiToVm(res);
+        setCharacters(response.results);
+        SetPaginationData(response.info);
+      })
       .catch((err) => {
-        console.log(err);
         setError(`Ha ocurrido un error ${err}`);
         setCharacters([]);
         SetPaginationData(null);
       });
+  };
+
+  React.useEffect(() => {
+    onLoadCharacterList();
   }, [debounceSearch.name, page]);
 
-  const getData = (res: APIResponse) => {
-   //   console.log(res);
-    if(res){
-      const response = ResponseFromApiToVm(res)
-      if (response.results) {
-        setCharacters(response.results);
-      }
-      if (response.info) {
-        SetPaginationData(response.info);
-      }
-      if (error) {
-        setError(null);
-      }
-    }
-
-  };
-   
-  return(
-    
-        <CharactersComponent
-        characters={characters}
-        error= {error}
-        page = {page}
-        setPage = {setPage}
-        searchForm={searchForm}
-        setSearchForm={setSearchForm}
-        paginationData = {paginationData}
-
-        />
-  )
-
+  return (
+    <CharactersComponent
+      characters={characters}
+      error={error}
+      page={page}
+      setPage={setPage}
+      searchForm={searchForm}
+      setSearchForm={setSearchForm}
+      paginationData={paginationData}
+    />
+  );
 };
