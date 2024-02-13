@@ -14,7 +14,6 @@ export const MemberDetailContainer: React.FC = () => {
     getMemberDetail(id)
       .then((res) => setMember(mapMemberFromApiToVm(res)))
       .catch((err) => {
-        console.log("err", err);
         setError(`Ha ocurrido un error ${err}`);
         throw Error(err);
       });

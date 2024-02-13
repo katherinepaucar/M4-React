@@ -9,7 +9,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import './rick-and-morty-character-details.styles.css'
+import "./rick-and-morty-character-details.styles.css";
 import { CharacterInfo } from "./rick-and-morty-characters-details.vm";
 interface Props {
   character: CharacterInfo;
@@ -18,8 +18,8 @@ interface Props {
 }
 
 export const CharacterDetail: React.FC<Props> = (props) => {
- const {character, error, id } = props
-  
+  const { character, error, id } = props;
+
   return (
     <>
       <div className="container-detail">

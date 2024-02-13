@@ -6,9 +6,8 @@ export const App = () => {
   return (
     <SearchMemberProvider>
       <SearchCharacterProvider>
-    <RouterComponent />
-    </SearchCharacterProvider>
+        <RouterComponent />
+      </SearchCharacterProvider>
     </SearchMemberProvider>
-    )
-
+  );
 };

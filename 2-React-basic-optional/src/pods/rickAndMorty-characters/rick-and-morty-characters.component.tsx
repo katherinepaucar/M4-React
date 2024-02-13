@@ -1,7 +1,12 @@
 import React from "react";
 import { Pagination, TextField } from "@mui/material";
-import { ErrorForms, SearchForm, createEmptyFormError, formValidation } from "./form";
-import {CharacterTableList} from './components/rick-and-morty-characters-table.component'
+import {
+  ErrorForms,
+  SearchForm,
+  createEmptyFormError,
+  formValidation,
+} from "./form";
+import { CharacterTableList } from "./components/rick-and-morty-characters-table.component";
 import { Character, paginationDataRM } from "./rick-and-morty-characters.vm";
 const defaultPage = 1;
 interface Props {
@@ -11,10 +16,18 @@ interface Props {
   searchForm: SearchForm;
   setSearchForm: (value: SearchForm) => void;
   page: number;
-  setPage:(value: number) => void;
+  setPage: (value: number) => void;
 }
 export const CharactersComponent: React.FC<Props> = (props) => {
-  const {searchForm, setSearchForm, characters, page, setPage,paginationData, error } = props;
+  const {
+    searchForm,
+    setSearchForm,
+    characters,
+    page,
+    setPage,
+    paginationData,
+    error,
+  } = props;
 
   const [errorValidation, setErrorValidation] = React.useState<ErrorForms>(
     createEmptyFormError()
@@ -26,11 +39,9 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 
   const updateFieldValue =
     (field: keyof SearchForm) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      // console.log(e);
       formValidation
         .validateField(field, e.target.value)
         .then((validationResult) => {
-          console.log(validationResult);
           setErrorValidation({
             ...errorValidation,
             [field]: validationResult.message as string,
@@ -39,12 +50,11 @@ export const CharactersComponent: React.FC<Props> = (props) => {
       setSearchForm({
         [field]: e.target.value,
       });
-      // console.log("page", page);
+
       setPage(defaultPage);
-      // console.log('updateFieldValue e')
     };
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-     setPage(value);
+    setPage(value);
   };
 
   return (

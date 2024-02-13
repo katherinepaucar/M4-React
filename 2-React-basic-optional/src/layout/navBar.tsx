@@ -25,7 +25,6 @@ function ResponsiveAppBar() {
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    // console.log(event);
     setAnchorElNav(event.currentTarget);
   };
 

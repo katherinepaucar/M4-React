@@ -2,7 +2,7 @@ import React from "react";
 import { Button, TextField } from "@mui/material";
 import { Filter, createEmptyFilter } from "./filter";
 import { BasicPagination, MemberList } from "./components";
-import './github-members-list.styles.css'
+import "./github-members-list.styles.css";
 import { MemberEntity } from "./github-members-list.vm";
 import { PaginationData, SplitData } from "./pagination";
 
@@ -10,21 +10,26 @@ interface Props {
   members: MemberEntity[];
   error: string;
   infoPagination: PaginationData;
-  searchValue: string,
-  setSearchValue: (value: string) => void
+  searchValue: string;
+  setSearchValue: (value: string) => void;
   setNewPagination: (newValue: SplitData) => void;
 }
 
-
 export const MemberListComponent: React.FC<Props> = (props) => {
-  const {members, error, infoPagination,setNewPagination, searchValue, setSearchValue} = props;
+  const {
+    members,
+    error,
+    infoPagination,
+    setNewPagination,
+    searchValue,
+    setSearchValue,
+  } = props;
   const [searchForm, setSearchForm] = React.useState<Filter>(
     createEmptyFilter(searchValue)
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-   //  console.log('e', e)
     setSearchValue(searchForm.org);
   };
   const updateFieldValue =
@@ -32,11 +37,9 @@ export const MemberListComponent: React.FC<Props> = (props) => {
       setSearchForm({
         [field]: e.target.value,
       });
-      //  console.log('updateFieldValue e')
     };
   const updateData = (data) => {
-    //  console.log("updateData data", data);
-   setNewPagination({
+    setNewPagination({
       from: data.from,
       to: data.to,
     });
@@ -59,10 +62,10 @@ export const MemberListComponent: React.FC<Props> = (props) => {
             Buscar
           </Button>
         </form>
-    
+
         <MemberList members={members}></MemberList>
         {error && <p className="text-error">{error}</p>}
-            <BasicPagination
+        <BasicPagination
           pageSize={infoPagination.perPage}
           totalElement={infoPagination.totalElement}
           defaultPage={infoPagination.defaultPage}
