@@ -1,6 +1,6 @@
 import React from "react";
 import { MemberListComponent } from "./github-members-list.component";
-import { MemberEntityAPI, getMemberCollection } from "./api";
+import { getMemberCollection } from "./api";
 import { mapMemberCollectionFromApiToVm } from "./github-members-list.mapper";
 import { MemberEntity } from "./github-members-list.vm";
 import { PaginationData, SplitData } from "./pagination";
@@ -22,11 +22,19 @@ export const MemberListContainer: React.FC = () => {
     from: 0,
     to: perPage,
   });
-  React.useEffect(() => {
+  const onLoadMemberList = (from:number, to: number) => {
     getMemberCollection(searchValue)
-      .then((res) => getData(res, newPagination.from, newPagination.to))
+      .then((res) => {
+        const response =  mapMemberCollectionFromApiToVm(res);
+        const data = response.slice(from, to);
+        setMembers(data);
+        SetInfoPagination({
+          perPage: 5,
+          defaultPage: 1,
+          totalElement: response.length,
+        });
+      })
       .catch((err) => {
-        console.log(err);
         setError(`Ha ocurrido un error ${err}`);
         setMembers([]);
         SetInfoPagination({
@@ -35,25 +43,13 @@ export const MemberListContainer: React.FC = () => {
           totalElement: 0,
         });
       });
+  };
+
+  React.useEffect(() => {
+    onLoadMemberList(newPagination.from, newPagination.to);
   }, [searchValue, newPagination.from, newPagination.to]);
 
-  const getData = (res: MemberEntityAPI[], from: number, to: number) => {
-    /*console.log("from", from);
-    console.log("to", to);*/
-    const response = mapMemberCollectionFromApiToVm(res);
-    if (response) {
-      const data = response.slice(from, to);
-      setMembers(data);
-      SetInfoPagination({
-        perPage: 5,
-        defaultPage: 1,
-        totalElement: response.length,
-      });
-      if (error) {
-        setError(null);
-      }
-    }
-  };
+
   return (
     <MemberListComponent
       members={members}
