@@ -1,5 +1,5 @@
 export interface MemberEntityAPI {
-    id: string;
-    login: string;
-    avatar_url: string;
-  }
+  id: string;
+  login: string;
+  avatar_url: string;
+}
