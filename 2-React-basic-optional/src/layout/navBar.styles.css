@@ -1,19 +1,17 @@
 /*NavBar*/
-.linkMenu{
-    text-decoration: none;
-    color:white;
-    margin:  10px;
-  }
-  .is-active {
-    border-bottom: 5px solid darkblue;
-  }
-  
-  
-  
-  @media (max-width: 899px) { 
-  .linkMenu{
-    color:black;
+.linkMenu {
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+}
+.is-active {
+  border-bottom: 5px solid darkblue;
+}
+
+@media (max-width: 899px) {
+  .linkMenu {
+    color: black;
     text-align: left;
     display: block;
   }
-  }
+}
